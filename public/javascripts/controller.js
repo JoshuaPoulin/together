@@ -9,6 +9,10 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
       // error
     });
   }
+  $http.get('../meetups').then(function(data){
+    $scope.meetups = data.data;
+    console.log($scope.meetups[0].event);
+  });
   $scope.logout = function (){
     localStorage.clear();
     $rootScope.username = '';

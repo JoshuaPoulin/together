@@ -1,0 +1,25 @@
+<div class"row">
+  <div>
+    <h1> Together is a Wonderful place to be.</h1>
+  </div>
+  <form role="search">
+    <div class="form-group">
+      <input ng-model='search' type="text" class="form-control" placeholder="Search">
+    </div>
+  </form>
+  <div class="row margin-top meetups" ng-repeat='meetups in meetups'>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="thumbnail">
+            <img ng-src="{{meetups.image}}" alt="...">
+          </div>
+        </div>
+      <div class="col-md-9">
+        <h4><strong class="text-info">{{meetups.name}}</strong> |  </h4>
+        <!-- <p class='pull-right text-warning'>By {{meetups.author}}</p> -->
+        <p ng-date='longdate'><i class="glyphicon glyphicon-calendar"></i>{{meetups.event | date : 'MM-d-y'}} | </p>
+        <p>{{meetups.description}}</p>
+      </div>
+    </div>
+</div>
