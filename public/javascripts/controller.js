@@ -10,8 +10,16 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
     });
   }
   $http.get('../meetups').then(function(data){
-    $scope.meetups = data.data;
-    console.log($scope.meetups[0].event);
+    $scope.meetups = data.data[0];
+    $scope.attendees = data.data[1];
+    for(var i = 0; i < $scope.meetups.length; i++){
+      $scope.meetups[i].attendees = 0;
+      for(var j = 0; j < $scope.attendees.length; j++){
+        if($scope.meetups[i].id == $scope.attendees[j].meetups_id){
+          $scope.meetups[i].attendees++;
+        }
+      }
+    }
   });
   $scope.logout = function (){
     localStorage.clear();

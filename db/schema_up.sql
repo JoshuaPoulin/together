@@ -11,6 +11,7 @@ CREATE TABLE users (
 CREATE TABLE meetups (
   id serial primary key,
   name varchar(50),
+  creator numeric;
   streetAdress varchar(50),
   cityState varchar(35),
   event date,
