@@ -1,14 +1,6 @@
 app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', function($scope, $http, $location, $rootScope){
-  if (localStorage.getItem("userId")) {
-    var id = localStorage.getItem("userId");
-    $http.post('/users/me',{user: id}).then(function(response) {
-      $scope.username = response.data.rows[0].email;
-      $rootScope.username = response.data.rows[0].email;
-      $scope.displayname = response.data.rows[0].display;
-    }, function() {
-      // error
-    });
-  }
+  $scope.showGroup;
+  $scope.meetups;
   $http.get('../meetups').then(function(data){
     $scope.meetups = data.data[0];
     $scope.attendees = data.data[1];
@@ -20,7 +12,45 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
         }
       }
     }
-  });
+  }).then(function(){
+    $scope.$watch(function(){
+      return $location.path();
+    }, function(value){
+      if (localStorage.getItem("userId")) {
+      var id = localStorage.getItem("userId");
+      $http.post('/users/me',{user: id}).then(function(response) {
+        $scope.username = response.data.rows[0].email;
+        $rootScope.username = response.data.rows[0].email;
+        $scope.displayname = response.data.rows[0].display;
+        console.log($scope.displayname);
+      }, function() {
+        // error
+      });
+    }
+    var temp = value.split('/');
+    if(temp[1] === "group"){
+      for(var i = 0; i < $scope.meetups.length; i++){
+        if($scope.meetups[i].id == temp[2]){
+          $scope.showGroup = $scope.meetups[i];
+        }
+      }
+    }
+    })
+  })
+  $scope.join = function(meetups){
+    var id = localStorage.getItem("userId");
+    $http.post('/users/me',{user: id}).then(function(response) {
+      $http.post('../joinGroup', {user: response.data.rows[0], meetup: meetups}).then(function(response){
+        for(var i = 0; i< $scope.meetups.length; i++){
+          if($scope.meetups[i].id === meetups){
+            $scope.meetups[i].attendees++
+          }
+        }
+      })
+    }, function() {
+      // error
+    }); 
+  }
   $scope.logout = function (){
     localStorage.clear();
     $rootScope.username = '';

@@ -15,6 +15,10 @@ app.config(function($locationProvider, $routeProvider){
     })
     .when('/new', {
       templateUrl: '/partials/newmeetup.html',
-      controller: "NewController"
+      controller: 'NewController'
+    })
+    .when('/group/:id', {
+      templateUrl: '/partials/group.html',
+      controller: 'HomeController'
     })
 })

@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="row margin-top showGroup">
+    <div class="col-md-9 col-md-offset-1">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="thumbnail">
+            <img ng-src="{{showGroup.image}}" alt="...">
+          </div>
+        </div>
+      <div class="col-md-9">
+        <h4><a href="/group/{{ showGroup.id }}"> <strong class="text-primary">{{showGroup.name}}</strong></a> | <a ng-click="join(showGroup.id)" class="btn btn-primary btn-sm">Join</a> </h4>
+        <!-- <p class='pull-right text-warning'>By {{showGroup.author}}</p> -->
+        <p ng-date='longdate'><i class="glyphicon glyphicon-calendar"></i>&nbsp;<time title="{{ showGroup.event | amDateFormat: 'MMM D YYYY' }}">{{ showGroup.event | amDateFormat: 'MMM D YYYY' }}</time> | {{showGroup.time}} </p>
+        <p>{{showGroup.description}}</p>
+        <p>{{showGroup.streetadress}} | {{showGroup.citystate}}</p>
+        <p>{{showGroup.attendees}} <ng-pluralize count="showGroup.attendees" when="{'0': 'people coming together.','1': 'person coming together.', 'other': 'people coming together.'}"></ng-pluralize></p>
+      </div>
+    </div>
+</div>

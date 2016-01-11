@@ -13,7 +13,7 @@
           </div>
         </div>
       <div class="col-md-9">
-        <h4><strong class="text-primary">{{meetups.name}}</strong> |  </h4>
+        <h4><a href="/group/{{ meetups.id }}"> <strong class="text-primary">{{meetups.name}}</strong></a> | <a ng-click="join(meetups.id)" class="btn btn-primary btn-sm">Join</a> </h4>
         <!-- <p class='pull-right text-warning'>By {{meetups.author}}</p> -->
         <p ng-date='longdate'><i class="glyphicon glyphicon-calendar"></i>&nbsp;<time title="{{ meetups.event | amDateFormat: 'MMM D YYYY' }}">{{ meetups.event | amDateFormat: 'MMM D YYYY' }}</time> | {{meetups.time}} </p>
         <p>{{meetups.description}}</p>
