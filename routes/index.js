@@ -33,4 +33,20 @@ router.get('/meetups', function(req, res, next){
     })
   })
 })
+router.post('/newMeetup', function(req, res, next){
+  pg.connect(conString, function(err, client, done){
+    if (err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('INSERT INTO meetups(name, streetadress, cityState, event, time, description, image) VALUES($1, $2, $3, $4, $5, $6, $7) returning id', [req.body.user.name, req.body.user.street, req.body.user.city, req.body.user.date, req.body.user.time, req.body.user.description, req.body.user.image], function(err, result){
+      done();
+      console.log(result);
+      res.status(200).json(result)
+      if(err){
+        return console.error('error running query', err);
+      }
+      console.log('connected to database');
+    })
+  })
+})
 module.exports = router;

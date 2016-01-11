@@ -3,6 +3,13 @@
     <h1>Create A New Account</h1>
     <form name="signUpForm"class="form-horizontal" novalidate>
       <div class="form-group">
+        <label for="display" class="col-sm-2 control-label">Display Name</label>
+        <div class="col-sm-10">
+        <input type="display" class="form-control" id="signupForm.display" placeholder="Display Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Display Name'" ng-class="{invalid: signUpForm.signupForm.display.$error.required}" ng-model="signupForm.display" name="display" required>
+        <p class="text-warning" ng-show="signUpForm.display.$error.required">Display Name required</p>
+        </div>
+      </div>
+      <div class="form-group">
         <label for="email" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-10">
           <input type="email" class="form-control" id="signupForm.email" placeholder="email@example.com" onfocus="this.placeholder = ''" onblur="this.placeholder = 'email@example.com'" ng-class="{invalid: signUpForm.signupForm.email.$error.required}" ng-model="signupForm.email" name="email" required>

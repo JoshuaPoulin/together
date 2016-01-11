@@ -4,7 +4,7 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
     $http.post('/users/me',{user: id}).then(function(response) {
       $scope.username = response.data.rows[0].email;
       $rootScope.username = response.data.rows[0].email;
-      console.log($scope.username);
+      $scope.displayname = response.data.rows[0].display;
     }, function() {
       // error
     });
@@ -47,3 +47,18 @@ app.controller('LoginController', ["$scope","$http", "$location", "$cookieStore"
     });
   };
 }]);
+app.controller('NewController', ["$scope","$http", "$location", "$cookieStore", function($scope, $http, $location, $cookieStore){
+  $scope.createNew = function() {
+    $scope.newMeetup.date = Date.parse($scope.newMeetup.date);
+    console.log($scope.newMeetup.date);
+    $http.post('../newMeetup', {user: $scope.newMeetup}).then(function(response){
+      $location.path("/");
+    }, function(){
+      console.log("error");
+    });
+  };
+}]);
+
+
+
+

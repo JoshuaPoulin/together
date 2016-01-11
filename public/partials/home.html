@@ -1,14 +1,11 @@
 <div class"row">
-  <div>
+  <!-- <div>
     <h1> Together is a Wonderful place to be.</h1>
+  </div> -->
+  <div class="jumbotron col-md-9 col-md-offset-2">
   </div>
-  <form role="search">
-    <div class="form-group">
-      <input ng-model='search' type="text" class="form-control" placeholder="Search">
-    </div>
-  </form>
   <div class="row margin-top meetups" ng-repeat='meetups in meetups'>
-    <div class="col-md-12">
+    <div class="col-md-9 col-md-offset-1">
       <div class="row">
         <div class="col-md-3">
           <div class="thumbnail">
@@ -18,7 +15,7 @@
       <div class="col-md-9">
         <h4><strong class="text-primary">{{meetups.name}}</strong> |  </h4>
         <!-- <p class='pull-right text-warning'>By {{meetups.author}}</p> -->
-        <p ng-date='longdate'><i class="glyphicon glyphicon-calendar"></i>{{meetups.event | date : 'MM-d-y'}} | {{meetups.time}} </p>
+        <p ng-date='longdate'><i class="glyphicon glyphicon-calendar"></i>&nbsp;<time title="{{ meetups.event | amDateFormat: 'MMM D YYYY' }}">{{ meetups.event | amDateFormat: 'MMM D YYYY' }}</time> | {{meetups.time}} </p>
         <p>{{meetups.description}}</p>
         <p>{{meetups.streetadress}} | {{meetups.citystate}}</p>
         <p>{{meetups.attendees}} <ng-pluralize count="meetups.attendees" when="{'0': 'people coming together.','1': 'person coming together.', 'other': 'people coming together.'}"></ng-pluralize></p>

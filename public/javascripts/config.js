@@ -13,4 +13,8 @@ app.config(function($locationProvider, $routeProvider){
       templateUrl: '/partials/signin.html',
       controller: "LoginController"
     })
+    .when('/new', {
+      templateUrl: '/partials/newmeetup.html',
+      controller: "NewController"
+    })
 })

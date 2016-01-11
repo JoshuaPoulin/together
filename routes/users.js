@@ -13,7 +13,7 @@ router.post('/signup', function(req, res, next) {
     if (err) {
       return console.error('error fetching client from pool', err);
     }
-    client.query('INSERT INTO users(email, password) VALUES($1, $2) returning id',[req.body.user.email, hash], function(err, result) {
+    client.query('INSERT INTO users(display, email, password) VALUES($1, $2, $3) returning id',[req.body.user.display, req.body.user.email, hash], function(err, result) {
       done();
       console.log(result)
       res.status(200).json(result)

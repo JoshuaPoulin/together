@@ -1,1 +1,1 @@
-var app = angular.module('together', ['ngRoute', 'ngMessages','ngCookies']);
+var app = angular.module('together', ['ngRoute', 'ngMessages','ngCookies','angularMoment']);

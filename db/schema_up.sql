@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS attendees;
 
 CREATE TABLE users (
   id serial primary key,
+  display varchar(16),
   email varchar(50),
   password varchar(100)
 );
@@ -11,10 +12,9 @@ CREATE TABLE users (
 CREATE TABLE meetups (
   id serial primary key,
   name varchar(50),
-  creator numeric;
-  streetAdress varchar(50),
+  streetadress varchar(50),
   cityState varchar(35),
-  event date,
+  event numeric,
   time varchar(15),
   description text,
   image varchar(255)

@@ -1,0 +1,65 @@
+<div class="row">
+  <div class='col-md-7 col-md-offset-2'>
+    <div class="col-med-3 col-md-offset-3">
+    <h1>Do Something Together</h1>
+    </div>
+    <form name="newmeetup"class="form-horizontal" novalidate>
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Group Name</label>
+        <div class="col-sm-10">
+          <input type="name" class="form-control" id="newMeetup.name" placeholder="Group Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Group name'" ng-class="{invalid: newMeetUp.newMeetup.name.$error.required}" ng-model="newMeetup.name" name="name" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="street" class="col-sm-2 control-label">Street Address</label>
+        <div class="col-sm-10">
+          <input type="street" class="form-control" id="newMeetup.name" placeholder="Street Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Street Address'" ng-class="{invalid: newMeetUp.newMeetup.street.$error.required}" ng-model="newMeetup.street" name="street" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="city" class="col-sm-2 control-label">City, State</label>
+        <div class="col-sm-10">
+          <input type="city" class="form-control" id="newMeetup.city" placeholder="Boulder, CO" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Boulder, CO'" ng-class="{invalid: newMeetUp.newMeetup.city.$error.required}" ng-model="newMeetup.city" name="city" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="" class="col-sm-2 control-label">Event Date</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" id="newMeetup.date" ng-class="{invalid: newMeetUp.newMeetup.date.$error.required}" ng-model="newMeetup.date" name="date" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="" class="col-sm-2 control-label">Time</label>
+        <div class="col-sm-10">
+          <input type="when" class="form-control" id="newMeetup.time" placeholder="ex: 5:00 PM" onfocus="this.placeholder = ''" onblur="this.placeholder = 'ex: 5:00 PM'" ng-class="{invalid: newMeetUp.newMeetup.time.$error.required}" ng-model="newMeetup.time" name="time" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description" class="col-sm-2 control-label">Event Description</label>
+        <div class="col-sm-10">
+          <input type="description" class="form-control" rows="3" id="newMeetup.description" placeholder="" onfocus="this.placeholder = ''" onblur="this.placeholder = ''" ng-class="{invalid: newMeetUp.newMeetup.description.$error.required}" ng-model="newMeetup.description" name="description" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="imageURL" class="col-sm-2 control-label">Image URL</label>
+        <div class="col-sm-10">
+          <input type="input" class="form-control" id="newMeetup.image" placeholder="Image URL" ng-model="newMeetup.image" name="image">
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+      </div>
+    <!--   <div class="form-group">
+        <label for="image" class="col-sm-2 control-label">Image URL</label>
+        <div class="col-sm-10">
+          <input type="image" class="form-control" id="newMeetup.image" placeholder="Image URL" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Image URL'" ng-class="{invalid: newMeetUp.newMeetup.image.$error.required}" ng-model="newMeetup.image" name="image" required>
+        </div>
+      </div> -->
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-primary" ng-click="createNew()" >Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
