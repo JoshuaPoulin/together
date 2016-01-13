@@ -15,6 +15,10 @@ router.get('/meetups', function(req, res, next){
     async.parallel([
       function(cb){
         client.query('SELECT * FROM meetups', function(err, result){
+          if(err){
+        console.log('error performing query', err)
+      }
+
           cb(err, result.rows)
         })
       },
