@@ -13,3 +13,21 @@ a {
   width: 1000px;
   vertical-align: center;
 }
+.messagespan {
+  display: block;
+  font-size: 2em;
+  font-family: Raleway;
+  font-weight: 400;
+}
+.chatdiv {
+  border: 1px solid black;
+  height: 40vh;
+  overflow: scroll; 
+}
+.messagediv input {
+  border: 1px solid black;
+  width: 46vw;
+}
+.messageUser {
+  display: inline;
+}

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="row margin-top showGroup">
-    <div class="col-md-9 col-md-offset-1">
+    <div class="col-md-9 col-md-offset-4">
       <div class="row">
         <div class="col-md-3">
           <div class="thumbnail">
@@ -17,3 +17,20 @@
       </div>
     </div>
 </div>
+<div class="container">
+      <div class="row row-centered">
+        <div class="col-md-9 col-md-offset-2">
+        <div class="item">
+        <div class="content chatdiv" scroll-glue>
+          <span class='messagespan' ng-repeat='content in messageArray'>
+          <p class="text-primary messageUser">{{ content.users_display }}:</p>
+          <p class="messageUser">{{content.content}}</p>
+          </span>
+        </div></div></div>
+        <div class="col-md-9 col-md-offset-2"><div class="item"><div class='content messagediv'>
+          <form name="messageform" novalidate>
+          <input ng-model="chatbox" type='text' class="messenger" required/>&nbsp;&nbsp;<a class="btn btn-default btn-xs" ui-keypress="{13: 'chat($event)'}" ng-disabled="messageform.$invalid" ng-click="chat()">Submit</a>
+          </form>
+        </div></div></div>
+      </div>
+    </div>

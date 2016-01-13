@@ -64,6 +64,21 @@ router.post('/joinGroup', function(req, res, next){
     })
   })
 })
+router.get('/group', function(req, res, next){
+  pg.connect(conString, function(err, client, done){
+    if (err) {
+      return console.error('error fetching client from pool', err);
+    }
+    client.query('SELECT * FROM messages', function(err, result){
+      done();
+      res.json(result.rows);
+      if(err){
+        return console.error('error running query', err);
+      }
+      console.log('connected to database');
+    })
+  })
+})
 router.get('*', function(req, res, next) {
   res.sendFile('index.html', {
     root: __dirname + '/../public/'

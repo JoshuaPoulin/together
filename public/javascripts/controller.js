@@ -1,6 +1,17 @@
 app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', function($scope, $http, $location, $rootScope){
+  var socket = io();
+  $scope.currentURL;
   $scope.showGroup;
   $scope.meetups;
+  $scope.displayname;
+  var groupURL = $location.path();
+  socket.on('messageFeed', function(data){
+    var chatRoom = groupURL.split('/');
+    $scope.messageArray = data.filter(function(item){
+      return item.meetups_id == chatRoom[2];
+    })
+    $scope.$apply();
+    })
   $http.get('../meetups').then(function(data){
     $scope.meetups = data.data[0];
     $scope.attendees = data.data[1];
@@ -16,6 +27,13 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
     $scope.$watch(function(){
       return $location.path();
     }, function(value){
+      $scope.currentURL = value;
+      var groupURL = value.split('/');
+      $http.get("../group").then(function(response){
+        $scope.messageArray = response.data.filter(function(item){
+          return item.meetups_id == groupURL[2];
+        })
+      })
       if (localStorage.getItem("userId")) {
       var id = localStorage.getItem("userId");
       $http.post('/users/me',{user: id}).then(function(response) {
@@ -35,6 +53,25 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
         }
       }
     }
+    $scope.chat = function(){
+      var message = $scope.chatbox;
+      $scope.messageArray.push(message)
+      var tempMessages = {};
+          tempMessages.content = message;
+          tempMessages.meetups_id = $scope.showGroup.id;
+          tempMessages.users_display = $scope.displayname;
+          tempMessages.url = value;
+          tempMessages.date = Date.now();
+      socket.emit('sendMessage', tempMessages);
+      $scope.chatbox = null;
+      groupURL = $scope.currentURL.split('/');
+      $http.get("../group").then(function(response){
+        $scope.messageArray = response.data.filter(function(item){
+          return item.meetups_id == groupURL[2];
+        })
+        socket.emit('allMessages', response.data);
+      })
+        }
     })
   })
   $scope.join = function(meetups){
@@ -54,6 +91,7 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
   $scope.logout = function (){
     localStorage.clear();
     $rootScope.username = '';
+    $rootScope.$apply();
     $location.path('/');
   };
 }]);

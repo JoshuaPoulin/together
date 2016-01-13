@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS meetups;
 DROP TABLE IF EXISTS attendees;
+DROP TABLE IF EXISTS messages;
 
 CREATE TABLE users (
   id serial primary key,
@@ -24,4 +25,13 @@ CREATE TABLE attendees (
   id serial primary key,
   users_id numeric,
   meetups_id numeric
+);
+
+CREATE TABLE messages (
+  id serial primary key,
+  users_display varchar(16),
+  meetups_id numeric,
+  content text,
+  posted numeric,
+  url varchar(15)
 );
