@@ -8,10 +8,14 @@ a {
 }
 .jumbotron {
   background-image:url("http://i300.photobucket.com/albums/nn15/icrocklee/together.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   border-radius: "rounded corners";
   height: 500px;
-  width: 1000px;
-  vertical-align: center;
+  /*width:100vw !important;*/
+
+  /*vertical-align: center;*/
 }
 .messagespan {
   display: block;
@@ -31,3 +35,7 @@ a {
 .messageUser {
   display: inline;
 }
+.jumbotron h1 {
+  color:white;
+}
+

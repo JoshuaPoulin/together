@@ -1,10 +1,16 @@
-<div class"row">
-  <!-- <div>
-    <h1> Together is a Wonderful place to be.</h1>
-  </div> -->
-  <div class="jumbotron col-md-9 col-md-offset-2">
-  </div>
-  <div class="row margin-top meetups" ng-repeat='meetups in meetups'>
+<div class="container firstContainer">
+<div class="row row-centered">
+<div class="col-lg-12 col-centered"><div class="item"><div class="content">
+       <div class="jumbotron">
+        <h1> Together is a Wonderful place to be.</h1>
+      </div>
+</div></div></div>
+</div>
+</div>
+<div class="container">
+<div class="row row-centered">
+<div class="col-lg-12 col-centered"><div class="item"><div class="content">
+   <div class="row margin-top meetups" ng-repeat='meetups in meetups'>
     <div class="col-md-9 col-md-offset-1">
       <div class="row">
         <div class="col-md-3">
@@ -14,7 +20,6 @@
         </div>
       <div class="col-md-9">
         <h4><a href="/group/{{ meetups.id }}"> <strong class="text-primary">{{meetups.name}}</strong></a> | <a ng-click="join(meetups.id)" class="btn btn-primary btn-sm">Join</a> </h4>
-        <!-- <p class='pull-right text-warning'>By {{meetups.author}}</p> -->
         <p ng-date='longdate'><i class="glyphicon glyphicon-calendar"></i>&nbsp;<time title="{{ meetups.event | amDateFormat: 'MMM D YYYY' }}">{{ meetups.event | amDateFormat: 'MMM D YYYY' }}</time> | {{meetups.time}} </p>
         <p>{{meetups.description}}</p>
         <p>{{meetups.streetadress}} | {{meetups.citystate}}</p>
@@ -22,3 +27,8 @@
       </div>
     </div>
 </div>
+</div>
+</div></div></div>
+</div>
+</div>
+

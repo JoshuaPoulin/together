@@ -5,13 +5,16 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
   $scope.meetups;
   $scope.displayname;
   var groupURL = $location.path();
+
   socket.on('messageFeed', function(data){
-    var chatRoom = groupURL.split('/');
+    console.log("got a message", data)
+    var chatRoom = document.location.pathname.split('/');
     $scope.messageArray = data.filter(function(item){
       return item.meetups_id == chatRoom[2];
     })
     $scope.$apply();
-    })
+  })
+
   $http.get('../meetups').then(function(data){
     $scope.meetups = data.data[0];
     $scope.attendees = data.data[1];
@@ -24,56 +27,44 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
       }
     }
   }).then(function(){
+    // TODO: inject $routeParams instead of watching location
     $scope.$watch(function(){
       return $location.path();
     }, function(value){
+
       $scope.currentURL = value;
       var groupURL = value.split('/');
       $http.get("../group").then(function(response){
+        console.log("these are the messages")
         $scope.messageArray = response.data.filter(function(item){
           return item.meetups_id == groupURL[2];
         })
       })
-      if (localStorage.getItem("userId")) {
-      var id = localStorage.getItem("userId");
-      $http.post('/users/me',{user: id}).then(function(response) {
-        $scope.username = response.data.rows[0].email;
-        $rootScope.username = response.data.rows[0].email;
-        $scope.displayname = response.data.rows[0].display;
-        console.log($scope.displayname);
-      }, function() {
-        // error
-      });
-    }
-    var temp = value.split('/');
-    if(temp[1] === "group"){
-      for(var i = 0; i < $scope.meetups.length; i++){
-        if($scope.meetups[i].id == temp[2]){
-          $scope.showGroup = $scope.meetups[i];
+    
+      var temp = value.split('/');
+      if(temp[1] === "group"){
+        for(var i = 0; i < $scope.meetups.length; i++){
+          if($scope.meetups[i].id == temp[2]){
+            $scope.showGroup = $scope.meetups[i];
+          }
         }
       }
-    }
-    $scope.chat = function(){
-      var message = $scope.chatbox;
-      $scope.messageArray.push(message)
-      var tempMessages = {};
-          tempMessages.content = message;
-          tempMessages.meetups_id = $scope.showGroup.id;
-          tempMessages.users_display = $scope.displayname;
-          tempMessages.url = value;
-          tempMessages.date = Date.now();
-      socket.emit('sendMessage', tempMessages);
-      $scope.chatbox = null;
-      groupURL = $scope.currentURL.split('/');
-      $http.get("../group").then(function(response){
-        $scope.messageArray = response.data.filter(function(item){
-          return item.meetups_id == groupURL[2];
-        })
-        socket.emit('allMessages', response.data);
-      })
-        }
     })
   })
+
+  if (localStorage.getItem("userId")) {
+    var id = localStorage.getItem("userId");
+    $http.post('/users/me',{user: id}).then(function(response) {
+      $scope.username = response.data.rows[0].email;
+      $rootScope.username = response.data.rows[0].email;
+      $scope.displayname = response.data.rows[0].display;
+      console.log($scope.displayname);
+    }, function() {
+      // error
+    });
+  }
+
+
   $scope.join = function(meetups){
     var id = localStorage.getItem("userId");
     $http.post('/users/me',{user: id}).then(function(response) {
@@ -94,6 +85,27 @@ app.controller('HomeController', ['$scope', '$http','$location', '$rootScope', f
     $rootScope.$apply();
     $location.path('/');
   };
+  $scope.submitChat = function(event){
+    if(event.keyCode === 13){
+      $scope.chat();
+    }
+  }
+
+  $scope.chat = function(){
+    console.log("I am chatting...")
+    var message = $scope.chatbox;
+
+    console.log(message, $scope.messageArray)
+    var tempMessage = {};
+        tempMessage.content = message;
+        tempMessage.meetups_id = $scope.showGroup.id;
+        tempMessage.users_display = $scope.displayname;
+        tempMessage.url = document.location.pathname;
+        tempMessage.date = Date.now();
+    socket.emit('sendMessage', tempMessage);
+    $scope.chatbox = null;
+    groupURL = $scope.currentURL.split('/');
+  }
 }]);
 
 app.controller('LoginController', ["$scope","$http", "$location", "$cookieStore", function($scope, $http, $location, $cookieStore){

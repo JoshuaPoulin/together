@@ -29,7 +29,7 @@
         </div></div></div>
         <div class="col-md-9 col-md-offset-2"><div class="item"><div class='content messagediv'>
           <form name="messageform" novalidate>
-          <input ng-model="chatbox" type='text' class="messenger" required/>&nbsp;&nbsp;<a class="btn btn-default btn-xs" ui-keypress="{13: 'chat($event)'}" ng-disabled="messageform.$invalid" ng-click="chat()">Submit</a>
+          <input ng-keyup="submitChat($event)" ng-model="chatbox" type='text' class="messenger form-control" required/>
           </form>
         </div></div></div>
       </div>
